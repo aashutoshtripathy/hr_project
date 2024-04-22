@@ -1,17 +1,19 @@
-import { User } from "../model/User.model.js";
-import { loginUser } from "../controller/user.controller.js";
+// // auth.middleware.js
 
-const auth = (req,res,next) => {
-   try {
-     if (!req.isAuthenticated){
-        throw new error('Unauthorized user : User not be authenticated')
-     }
-     next()
-   } catch (error) {
-    console.log("user not logged in")
-   }
-}
-
-
-
-export {auth}
+// const auth = async (req, res, next) => {
+//     try {
+//       // Replace this with your actual password verification logic
+//       const isAuthenticated = await verifyPassword(req.body.usernameEmail, req.body.password);
+      
+//       if (!isAuthenticated) {
+//          throw new Error('Unauthorized user: User is not authenticated');
+//       }
+//       next();
+//     } catch (error) {
+//      console.error('Error in authentication middleware:', error);
+//      return res.status(401).json({ error: error.message });
+//     }
+//  };
+ 
+//  export { auth };
+ 
