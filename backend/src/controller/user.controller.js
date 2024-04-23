@@ -176,6 +176,16 @@ const deleteUser = asyncHandler(async(req,res) => {
     }
 })
 
-export { signupUser, loginUser , user , fetchData , updateUser , fetchIdData , deleteUser };
+const signup_fetch = asyncHandler(async(req,res) => {
+    try {
+        const userId = req.params.id;
+        const fetchData = await Signup.findById(userId)
+        return res.status(200).json(new ApiError(200,fetchData,"ok"))
+    } catch (error) {
+        return res.status(500).json(new ApiError(500, "error","Internal Server Error"))
+    }
+})
+
+export { signupUser, loginUser , user , fetchData , updateUser , fetchIdData , deleteUser , signup_fetch };
 
 
