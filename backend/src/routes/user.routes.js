@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { deleteUser, fetchData, fetchIdData, loginUser, signupUser, updateUser, user } from "../controller/user.controller.js";
+import { deleteUser, fetchData, fetchIdData, loginUser, signupUser, signup_fetch, updateUser, user } from "../controller/user.controller.js";
 // import { auth } from "../middleware/auth.middleware.js";
 
 
@@ -14,6 +14,7 @@ router.route("/fetch_data").get(fetchData)
 router.route("/update_data/:id").put(updateUser)
 router.route("/fetch_unique_data/:id").get(fetchIdData)
 router.route("/delete/:id").delete(deleteUser)
+router.route("/fetch/signup").get(signup_fetch)
 
 
 
