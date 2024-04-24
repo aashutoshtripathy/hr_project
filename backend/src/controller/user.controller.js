@@ -51,6 +51,8 @@ const loginUser = asyncHandler(async (req, res) => {
          $or: [{username:usernameEmail},{email:usernameEmail}]
      })
      console.log(user)
+
+     
      
  
      if(!user){
@@ -77,9 +79,13 @@ const loginUser = asyncHandler(async (req, res) => {
     //     { expiresIn: process.env.ACCESS_TOKEN_EXPIRY }
     // );
 
+
+    // const userId = await user.findOne({_id})
+    //  console.log(userId);
+
  
      return res.status(200).json(
-         new ApiResponse(200,{success: true,message: "User Logged in Successfully"})
+         new ApiResponse(200,{success: true,message: "User Logged in Successfully",userId:user._id})
      )
    } catch (error) {
     console.error("Error in sending the response",error)
