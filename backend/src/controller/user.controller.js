@@ -11,6 +11,8 @@ const signupUser = asyncHandler(async (req, res) => {
         const {firstname,lastname,email,password,username} = req.body
         // console.log(firstname,lastname,email,password,username)
 
+        const hashedPassword = await bcrypt.hash(password,10)
+
         const existedUser = await Signup.findOne({
             $or: [{username},{email}]
         })
@@ -23,7 +25,7 @@ const signupUser = asyncHandler(async (req, res) => {
             firstname,
             lastname,
             email,
-            password,
+            password: hashedPassword,
             username
         })
         const createdUser = await Signup.findById(user._id).select("-password -refreshToken")
@@ -58,14 +60,17 @@ const loginUser = asyncHandler(async (req, res) => {
      if(!user){
          throw new ApiError(400,"user does not exist")
      }
-        // console.log(user)
-    //  const isPasswordValid = await bcrypt.compare(password, user.password);
-    // const isPasswordValid = await user.isPasswordCorrect(password);
+        console.log(user)
+     const isPasswordValid = await bcrypt.compare(password, user.password);
+
+     if(!isPasswordValid){
+        return res.status(401).json(new ApiError(401,"Error","Invalid password"));
+     }
      
 
-    if (user.password !== password) {
-        throw new ApiError(400, "Invalid User Credentials")
-    }   
+    // if (user.password !== password) {
+    //     throw new ApiError(400, "Invalid User Credentials")
+    // }   
  
     //  if(!isPasswordValid){
     //      throw new ApiError(400,"Invalid User Credential")
