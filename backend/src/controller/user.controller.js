@@ -196,9 +196,29 @@ const signup_fetch = asyncHandler(async(req,res) => {
 })
 
 
+const updateLogin = asyncHandler(async(req,res) => {
+    try {
+        const userId = req.params.id
+        const {firstname,lastname,username,email} = req.body
+    
+        const updatedLogin = await Signup.findByIdAndUpdate(userId,{
+            firstname,
+            lastname,
+            username,
+            email
+        },{new:true})
+        if(!updatedLogin){
+            return res.status(404).json(new ApiError(404,"Error","User not found"))
+        }
+        return res.status(200).json(new ApiResponse(200,updatedLogin,"Updated Successfully"))
+    } catch (error) {
+        return res.status(500).json(new ApiError(500,"Error","Internal Server Error"))
+    }
+})
 
 
 
-export { signupUser, loginUser , user , fetchData , updateUser , fetchIdData , deleteUser , signup_fetch };
+
+export { signupUser, loginUser , user , fetchData , updateUser , fetchIdData , deleteUser , signup_fetch , updateLogin };
 
 
