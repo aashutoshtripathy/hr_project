@@ -22,9 +22,10 @@ app.use(bodyParser.json())
 
 import userRouter from "./routes/user.routes.js"
 import bodyParser from "body-parser";
+import verifyToken from "./middleware/auth.middleware.js";
 
 
-app.use("/api/v1/users", userRouter)
+app.use("/api/v1/users", verifyToken , userRouter)
 
 
 export { app };
