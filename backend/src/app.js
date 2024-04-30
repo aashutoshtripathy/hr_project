@@ -25,7 +25,7 @@ import bodyParser from "body-parser";
 import verifyToken from "./middleware/auth.middleware.js";
 
 
-app.use("/api/v1/users", verifyToken , userRouter)
+app.use("/api/v1/users" , userRouter)
 
 
 export { app };
