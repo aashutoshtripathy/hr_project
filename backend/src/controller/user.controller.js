@@ -226,6 +226,10 @@ const updateLogin = asyncHandler(async(req,res) => {
     }
 })
 
+// const verifyUser = asyncHandler(async(req,res) => {
+//     const 
+// })
+
 
 
 
