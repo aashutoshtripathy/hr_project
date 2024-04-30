@@ -1,19 +1,23 @@
-// // auth.middleware.js
+import jwt from 'jsonwebtoken';
+import  {asyncHandler}  from '../utils/asyncHandler.js';
+import  {ApiError}  from '../utils/ApiError.js';
+// import ApiResponse from './path/to/ApiResponse.js';
 
-// const auth = async (req, res, next) => {
-//     try {
-//       // Replace this with your actual password verification logic
-//       const isAuthenticated = await verifyPassword(req.body.usernameEmail, req.body.password);
-      
-//       if (!isAuthenticated) {
-//          throw new Error('Unauthorized user: User is not authenticated');
-//       }
-//       next();
-//     } catch (error) {
-//      console.error('Error in authentication middleware:', error);
-//      return res.status(401).json({ error: error.message });
-//     }
-//  };
- 
-//  export { auth };
+const verifyToken = asyncHandler(async (req, res, next) => {
+  const token = req.headers.authorization?.split(' ')[1];
+
+  if (!token) {
+    return res.status(401).json(new ApiError(401, 'Access denied. No token provided.')) 
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    req.user = decoded;
+    next();
+  } catch (error) {
+    return res.status(401).json(new ApiError(401, 'Invalid Token.')) 
+  }
+});
+
+export default verifyToken;
  
