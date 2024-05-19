@@ -92,7 +92,8 @@ const loginUser = asyncHandler(async (req, res) => {
 
     // const userId = await user.findOne({_id})
     //  console.log(userId);
-
+     res.cookie('accessToken',accessToken,{maxAge: 1000*60*24*60})
+     res.cookie('refreshToken',refreshToken)
  
      return res.status(200).json(
          new ApiResponse(200,{success: true,message: "User Logged in Successfully",userId:user._id,accessToken,refreshToken})
